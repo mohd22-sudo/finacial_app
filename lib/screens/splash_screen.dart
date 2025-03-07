@@ -1,3 +1,4 @@
+import 'package:finacial_app/screens/auth_screen.dart';
 import 'package:finacial_app/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const OnboardingScreen()),
+        MaterialPageRoute(builder: (context) => const AuthScreen()),
       );
     });
   }

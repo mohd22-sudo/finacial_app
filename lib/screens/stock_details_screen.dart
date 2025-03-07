@@ -1,4 +1,5 @@
 
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class StockDetailsScreen extends StatelessWidget {
@@ -48,31 +49,68 @@ class StockDetailsScreen extends StatelessWidget {
               Container(
                 height: 200,
                 decoration: BoxDecoration(
-                  color: Colors.black87,
+                  color: Colors.black54,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Center(
-                  child:  Image.asset(
-                            'assets/images/stock.jpg',
-                            width: 360,
-                            height: 360,
-                            fit: BoxFit.fitWidth,
-                            errorBuilder: (context, error, stackTrace) => Icon(Icons.broken_image, color: Colors.white70),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: LineChart(
+                    LineChartData(
+                      titlesData: FlTitlesData(
+                        leftTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            reservedSize: 40, 
+                            getTitlesWidget: (value, meta) {
+                              return Text(
+                                '\$${value.toStringAsFixed(0)}',
+                                style: TextStyle(color: Colors.white70, fontSize: 12),
+                              );
+                            },
                           ),
+                        ),
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            reservedSize: 22, 
+                            getTitlesWidget: (value, meta) {
+                              List<String> labels = ['1D', '1W', '1M', '1Y', 'ALL'];
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 8),
+                                child: Text(
+                                  labels[value.toInt() % labels.length],
+                                  style: TextStyle(color: Colors.white70, fontSize: 12),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      gridData: FlGridData(show: false),
+                      borderData: FlBorderData(show: false),
+                      lineBarsData: [
+                        LineChartBarData(
+                          spots: [
+                            FlSpot(0, 320),
+                            FlSpot(1, 340),
+                            FlSpot(2, 300),
+                            FlSpot(3, 380),
+                            FlSpot(4, 360),
+                          ],
+                          isCurved: true,
+                          color: Colors.green,
+                          barWidth: 3,
+                          belowBarData: BarAreaData(show: false),
+                          dotData: FlDotData(show: false),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
+
               const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('1D', style: TextStyle(color: Colors.white70)),
-                  Text('1W', style: TextStyle(color: Colors.white70)),
-                  Text('1M', style: TextStyle(color: Colors.white70)),
-                  Text('1Y', style: TextStyle(color: Colors.white70)),
-                  Text('ALL', style: TextStyle(color: Color.fromARGB(255, 66, 144, 69))),
-                ],
-              ),
-              const SizedBox(height: 20),
+          
               Expanded(
                 child: ListView(
                   children: [

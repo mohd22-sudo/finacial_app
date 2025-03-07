@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  fl_chart: ^0.55.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
